@@ -2,6 +2,7 @@
 <html>
 
     <head>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -9,75 +10,87 @@
         <h1>D&D Rune Calculator</h1>
         <p>Please enter spell details</p>
 
-        <input type="number" id="level" name="level" min="0" max="9" />
+        <div class="centered">
 
-        <select name="schools" id="schools">
-            <option value="abjuration">Abjuration</option>
-            <option value="conjuration">Conjuration</option>
-            <option value="divination">Divination</option>
-            <option value="enchantment">Enchantment</option>
-            <option value="evocation">Evocation</option>
-            <option value="illusion">Illusion</option>
-            <option value="necromancy">Necromancy</option>
-            <option value="transmutation">Transmutation</option>
-        </select>
+            <input type="number" id="level" placeholder="Spell level (0-9)" name="level" min="0" max="9" />
 
-        <select name="damages" id="damages">
-            <option value="acid">Acid</option>
-            <option value="bludgeoning">Bludgeoning</option>
-            <option value="cold">Cold</option>
-            <option value="fire">Fire</option>
-            <option value="force">Force</option>
-            <option value="lightning">Lightning</option>
-            <option value="necrotic">Necrotic</option>
-            <option value="piercing">Piercing</option>
-            <option value="poison">Poison</option>
-            <option value="psychic">Psychic</option>
-            <option value="radiant">Radiant</option>
-            <option value="slashing">Slashing</option>
-            <option value="thunder">Thunder</option>
-        </select>
+            <select name="schools" id="schools">
+                <option disabled selected>School of Magic</option>
+                <option value="abjuration">Abjuration</option>
+                <option value="conjuration">Conjuration</option>
+                <option value="divination">Divination</option>
+                <option value="enchantment">Enchantment</option>
+                <option value="evocation">Evocation</option>
+                <option value="illusion">Illusion</option>
+                <option value="necromancy">Necromancy</option>
+                <option value="transmutation">Transmutation</option>
+            </select>
 
-        <select name="areas" id="areas">
-            <option value="single">Single</option>
-            <option value="multi">Multi</option>
-            <option value="self">Self</option>
-            <option value="circle">Circle</option>
-            <option value="square">Square</option>
-            <option value="line">Line</option>
-            <option value="cone">Cone</option>
-            <option value="sphere">Sphere</option>
-            <option value="cube">Cube</option>
-            <option value="wall">Wall</option>
-        </select>
+            <select name="damages" id="damages">
+                <option disabled selected>Damage Type</option>
+                <option value="acid">Acid</option>
+                <option value="bludgeoning">Bludgeoning</option>
+                <option value="cold">Cold</option>
+                <option value="fire">Fire</option>
+                <option value="force">Force</option>
+                <option value="lightning">Lightning</option>
+                <option value="necrotic">Necrotic</option>
+                <option value="piercing">Piercing</option>
+                <option value="poison">Poison</option>
+                <option value="psychic">Psychic</option>
+                <option value="radiant">Radiant</option>
+                <option value="slashing">Slashing</option>
+                <option value="thunder">Thunder</option>
+            </select>
 
-        <select name="ranges" id="ranges">
-            <option value="5">5m</option>
-            <option value="30">30m</option>
-            <option value="60">50m</option>
-            <option value="90">90m</option>
-            <option value="120">120m</option>
-            <option value="150">150m</option>
-            <option value="300">300m</option>
-            <option value="500">500m</option>
-            <option value="1000">1000m</option>
-            <option value="1m">1 Mile</option>
-            <option value="radius">Radius</option>
-            <option value="line">Line</option>
-            <option value="cone">Cone</option>
-            <option value="self">Self</option>
-            <option value="sight">Sight</option>
-            <option value="touch">Touch</option>
-        </select>
+            <select name="areas" id="areas">
+                <option disabled selected>Area of Effect</option>
+                <option value="single">Single</option>
+                <option value="multi">Multi</option>
+                <option value="self">Self</option>
+                <option value="circle">Circle</option>
+                <option value="square">Square</option>
+                <option value="line">Line</option>
+                <option value="cone">Cone</option>
+                <option value="sphere">Sphere</option>
+                <option value="cube">Cube</option>
+                <option value="wall">Wall</option>
+            </select>
 
-        <button type="button" onclick="drawGlyph()">Draw glyph</button>
-        <!--<button type="button" onclick="drawOutline()">Draw outline</button>-->
+            <select name="ranges" id="ranges">
+                <option disabled selected>Range</option>
+                <option value="5">5m</option>
+                <option value="30">30m</option>
+                <option value="60">50m</option>
+                <option value="90">90m</option>
+                <option value="120">120m</option>
+                <option value="150">150m</option>
+                <option value="300">300m</option>
+                <option value="500">500m</option>
+                <option value="1000">1000m</option>
+                <option value="1m">1 Mile</option>
+                <option value="radius">Radius</option>
+                <option value="line">Line</option>
+                <option value="cone">Cone</option>
+                <option value="self">Self</option>
+                <option value="sight">Sight</option>
+                <option value="touch">Touch</option>
+            </select>
 
-        <canvas id="canvas" width="400" height="400" />
+            <div id="colored-glyph">
+                <input type="checkbox" id="color" name="color">
+                <label id="color-label" for="color">Color-coded glyph</label>
+            </div>
+
+            <button type="button" onclick="drawGlyph()">Draw glyph</button>
+            <!--<button type="button" onclick="drawOutline()">Draw outline</button>-->
+
+        </div>
+
+        <div class="centered">
+            <canvas id="canvas" width="600" height="600" />
+        </div>
 
         <script src="main.js"></script>
-
-        
-
     </body>
 </html> 

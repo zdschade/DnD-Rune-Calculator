@@ -1,3 +1,47 @@
+body {
+  font-family: 'Poppins';
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+p {
+  text-align: center;
+}
+
 canvas {
     border: solid 1px #000;
-  }
+    border-radius: 8px;
+    margin-top: 28px;
+}
+
+#level {
+  text-align: center;
+  margin: 4px;
+  width: 83%;
+}
+
+#colored-glyph {
+  text-align: center;
+}
+
+select {
+  text-align: center;
+  margin: 4px;
+  width: 85%;
+}
+
+button {
+  text-align: center;
+  margin-top: 16px;
+  width: 95%;
+  font-size: 20px;
+  padding: 4px;
+}
+
+.centered {
+  text-align: center;
+  margin: 0 auto;
+}

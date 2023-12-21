@@ -19,8 +19,14 @@ function convertPoints(point) {
 
     //console.log("Before conversion: " + x + ", " + y);
 
-    var x1 = ((200 * (x/10)))+200;
-    var y1 = ((200 * (y/10))*-1)+190;
+    var height = canvas.height
+    var width = canvas.width
+
+    glyphHeight = (height/2) - 20
+    glyphWidth = (width/2) - 20
+
+    var x1 = ((glyphHeight * (x/10))) + height/2;
+    var y1 = ((glyphWidth * (y/10))*-1) + ((height/2)-10);
 
     //console.log("Converted points: " + x1 + ", " + y1)
 
@@ -46,7 +52,16 @@ function drawLine(point1, point2, color="black") {
     //console.log(point1F);
     //console.log(point2F);
 
-    ctx.strokeStyle = color;
+    const colorChoice = document.getElementById("color");
+    console.log("colorChoice: " + colorChoice.value);
+
+    if (colorChoice.checked) {
+        ctx.strokeStyle = color;
+    } else {
+        ctx.strokeStyle = "black";
+    }
+
+    ctx.lineWidth = 4;
 
     ctx.beginPath();
     ctx.moveTo(point1F[0], point1F[1]);
@@ -70,6 +85,17 @@ function drawOutline() {
         };
     };
 };
+
+function drawPoints() {
+    for (let i=0; i<points.length; i++) {
+
+        var convertedPoint = convertPoints(points[i]);
+
+        ctx.beginPath();
+        ctx.arc(convertedPoint[0], convertedPoint[1], 7, 0, 2 * Math.PI);
+        ctx.fill();
+    };
+}
 
 function glyphPiece(index, k, color) {
     var ind = convertBinary(index);
@@ -141,31 +167,39 @@ var rangesDropdown = document.getElementById("ranges");
 
 var isGlyphDrawn = false;
 
-drawOutline();
+drawPoints();
 
-function drawGlyph() {
+function drawGlyph() {    
+    var selectedLevel = parseInt(levelInput.value);
     var selectedSchool = schoolsDropdown.value;
     var selectedDamages = damagesDropdown.value;
     var selectedAreas = areasDropdown.value;
     var selectedRanges = rangesDropdown.value.toString();
 
+    console.log("Selected level: " + selectedLevel);
+    
     console.log("Selected school: " + selectedSchool);
     console.log("Selected damages: " + selectedDamages);
     console.log("Selected areas: " + selectedAreas);
     console.log("Selected ranges: " + selectedRanges);
-
-    var selectedLevel = parseInt(levelInput.value);
-
-    var selectedSchoolText = schoolsDropdown.options[schoolsDropdown.selectedIndex].text;
-    var selectedDamagesText = damagesDropdown.options[damagesDropdown.selectedIndex].text;
-    var selectedAreasText = areasDropdown.options[areasDropdown.selectedIndex].text;
-    var selectedRangesText = rangesDropdown.options[rangesDropdown.selectedIndex].text;
+    
+    if (selectedLevel === NaN ||
+        selectedSchool === "School of Magic" ||
+        selectedDamages === "Damage type" ||
+        selectedAreas === "Area of Effect" ||
+        selectedRanges === "Range") 
+        {
+            alert("Please select a valid level, school, damage type, area of effect, and range.");
+            return;
+        }
 
     if (isGlyphDrawn) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawPoints();
     } else {
         isGlyphDrawn = true;
     }
 
     plotGlyph(selectedLevel, selectedSchool, selectedDamages, selectedAreas, selectedRanges);
+    drawPoints();
 }
