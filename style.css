@@ -5,10 +5,12 @@ body {
 h1 {
   text-align: center;
   margin-bottom: 0px;
+  font-size: 48px;
 }
 
 p {
   text-align: center;
+  font-size: 30px;
 }
 
 canvas {
@@ -21,6 +23,7 @@ canvas {
   text-align: center;
   margin: 4px;
   width: 83%;
+  font-size: 30px;
 }
 
 #colored-glyph {
@@ -31,13 +34,14 @@ select {
   text-align: center;
   margin: 4px;
   width: 85%;
+  font-size: 30px;
 }
 
 button {
   text-align: center;
   margin-top: 16px;
   width: 95%;
-  font-size: 20px;
+  font-size: 32px;
   padding: 4px;
 }
 
