@@ -7,9 +7,9 @@ const schools = ["abjuration", "conjuration", "divination", "enchantment", "evoc
 
 const damages = ["acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "psychic", "radiant", "slashing", "thunder"]
 
-const areas = ["single", "multi", "self", "circle", "square", "line", "cone", "sphere", "cube", "wall"]
+const areas = ["none", "single", "multi", "self", "circle", "square", "line", "cone", "sphere", "cube", "wall"]
 
-const ranges = ["5", "30", "60", "90", "120", "150", "300", "500", "1000", "1m", "radius", "line", "cone", "self", "sight", "touch", ]
+const ranges = ["none", "5", "30", "60", "90", "120", "150", "300", "500", "1000", "1m", "radius", "line", "cone", "self", "sight", "touch", ]
 
 function convertPoints(point) {
     //console.log("yer")
