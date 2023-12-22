@@ -9,10 +9,14 @@
 
         <h1>D&D Rune Calculator</h1>
         <p>Please enter spell details</p>
+        <p style="font-size: 16px; padding-bottom: 12px;">Cantrips are level 0</p>
 
         <div class="centered">
 
-            <input type="number" id="level" placeholder="Spell level (0-9)" name="level" min="0" max="9" />
+            <div class="tooltip centered">
+                <input type="number" id="level" placeholder="Spell level (0-9)" name="level" min="0" max="9" />
+                <span class="tooltiptext">Hint: Cantrips are level 0</span>
+            </div>
 
             <select name="schools" id="schools">
                 <option disabled selected>School of Magic</option>
@@ -78,8 +82,11 @@
             </select>
 
             <div id="colored-glyph">
-                <input type="checkbox" id="color" name="color">
+                <input type="checkbox" class="options" id="color" name="color" onclick="colorAttributes()">
                 <label id="color-label" for="color">Color-coded glyph</label>
+
+                <input type="checkbox" class="options" id="details" name="details" onclick="showDetails()">
+                <label id="details-label" for="details">Show Spell Binary</label>
             </div>
 
             <button type="button" onclick="drawGlyph()">Draw glyph</button>
@@ -89,6 +96,14 @@
 
         <div class="centered">
             <canvas id="canvas" width="600" height="600" />
+        </div>
+
+        <div id="details-block">
+            <p id="level-details" style="color: red">Level: 0000000000 | K=</p>
+            <p id="school-details" style="color: green">School: 0000000000 | K=</p>
+            <p id="damage-details" style="color: blue">Damage: 0000000000 K=</p>
+            <p id="area-details" style="color: purple">AoE: 0000000000 | K=</p>
+            <p id="range-details" style="color: orange">Range: 0000000000 | K=</p>
         </div>
 
         <script src="main.js"></script>

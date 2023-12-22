@@ -44,6 +44,14 @@ function convertBinary(num) {
     return bin
 }
 
+function updateBinary(level, school, damage, area, range) {
+    document.getElementById("level-details").innerHTML = "Level: " + convertBinary(level) + " | K=1";
+    document.getElementById("school-details").innerHTML = "School: " + convertBinary(school) + " | K=2";
+    document.getElementById("damage-details").innerHTML = "Damage: " + convertBinary(damage) + " | K=3";
+    document.getElementById("area-details").innerHTML = "Area: " + convertBinary(area) + " | K=4";
+    document.getElementById("range-details").innerHTML = "Range: " + convertBinary(range) + " | K=5";
+}
+
 function drawLine(point1, point2, color="black") {
     var point1F = convertPoints(point1);
     var point2F = convertPoints(point2);
@@ -139,21 +147,23 @@ function glyphPiece(index, k, color) {
 }
 
 function plotGlyph(level, school, damage, area, range) {
-    var schoolI = schools.indexOf(school);
-    var damageI = damages.indexOf(damage);
-    var areaI = areas.indexOf(area);
-    var rangeI = ranges.indexOf(range);
+    var schoolIndex = schools.indexOf(school);
+    var damageIndex = damages.indexOf(damage);
+    var areaIndex = areas.indexOf(area);
+    var rangeIndex = ranges.indexOf(range);
 
     console.log("Plotting level")
     glyphPiece(level+1, 1, "red");
     console.log("Plotting school")
-    glyphPiece(schoolI, 2, "green");
+    glyphPiece(schoolIndex, 2, "green");
     console.log("Plotting damage")
-    glyphPiece(damageI, 3, "blue");
+    glyphPiece(damageIndex, 3, "blue");
     console.log("Plotting area")
-    glyphPiece(areaI, 4, "purple");
+    glyphPiece(areaIndex, 4, "purple");
     console.log("Plotting range")
-    glyphPiece(rangeI, 5, "orange");
+    glyphPiece(rangeIndex, 5, "orange");
+
+    updateBinary(level, schoolIndex, damageIndex, areaIndex, rangeIndex);
 }
 
 // ----------------------------------------------------------------
@@ -167,7 +177,34 @@ var rangesDropdown = document.getElementById("ranges");
 
 var isGlyphDrawn = false;
 
-drawPoints();
+drawPoints(); // Set up the glyph format
+
+function showDetails() {
+    if (document.getElementById("details").checked) {
+        document.getElementById("details-block").style.display = "inline";
+    } else {
+        document.getElementById("details-block").style.display = "none";
+    }
+    return
+}
+
+function colorAttributes() {
+    if (document.getElementById("color").checked) {
+        document.getElementById("level").style.color = "red";
+        document.getElementById("schools").style.color = "green";
+        document.getElementById("damages").style.color = "blue";
+        document.getElementById("areas").style.color = "purple";
+        document.getElementById("ranges").style.color = "orange";
+    } else {
+        document.getElementById("level").style.color = "black";
+        document.getElementById("schools").style.color = "black";
+        document.getElementById("damages").style.color = "black";
+        document.getElementById("areas").style.color = "black";
+        document.getElementById("ranges").style.color = "black";
+    }
+    return
+}
+
 
 function drawGlyph() {    
     var selectedLevel = parseInt(levelInput.value);
@@ -184,12 +221,13 @@ function drawGlyph() {
     console.log("Selected ranges: " + selectedRanges);
     
     if (selectedLevel === NaN ||
+        selectedLevel > 9 ||
         selectedSchool === "School of Magic" ||
         selectedDamages === "Damage type" ||
         selectedAreas === "Area of Effect" ||
         selectedRanges === "Range") 
         {
-            alert("Please select a valid level, school, damage type, area of effect, and range.");
+            alert("Please select a valid level, school, damage type, area of effect, and range.\nLevel must be a number between 0 and 9. Cantrips are level 0.");
             return;
         }
 
