@@ -220,6 +220,10 @@ function colorAttributes() {
         document.getElementById("areas").style.color = "black";
         document.getElementById("ranges").style.color = "black";
     }
+
+    if (isGlyphDrawn) { // redraw the glyph colored if it is already drawn.
+        drawGlyph();
+    }
     return
 }
 
@@ -266,3 +270,4 @@ function drawGlyph() {
     plotGlyph(selectedLevel, selectedSchool, selectedDamages, selectedAreas, selectedRanges);
     drawPoints();
 }
+

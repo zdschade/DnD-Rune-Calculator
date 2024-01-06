@@ -94,3 +94,10 @@ button {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.disclaimer {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  z-index: 300;
+}
