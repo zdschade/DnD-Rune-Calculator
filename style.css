@@ -96,7 +96,7 @@ button {
 }
 
 .disclaimer {
-  position: absolute;
+  position: fixed !important;
   top: 0;
   right: 8px;
   z-index: 300;
