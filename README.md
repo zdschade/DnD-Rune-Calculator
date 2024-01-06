@@ -1,4 +1,7 @@
 # DnD-Rune-Calculator
+
+[Click here to use the calculator (http://glyph.knoxolotl.com)](http://glyph.knoxolotl.com)
+
 A simple calculator to generate glyphs of spells using the spell's attributes. Parts of the spell are encoded into simple binary numbers, and are drawn on the glyph accordingly. For information on how the binary numbers are drawn on the glyph and what a K-Value is, please see Gorilla of Destiny's original system.
 
 # Copyright and Disclaimer
