@@ -2,6 +2,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const points = [[3, 9], [7.5, 6], [10, 1.5], [9, -4], [5.5, -8.5], [0, -10], [-5.5, -8.5], [-9, -4], [-10, 1.5], [-7.5, 6], [-3, 9]];
+const pointsHex = [[0, 10], [10, 5], [10, -5], [0, -10], [-10, -5], [-10, 5]]
 console.log(points);
 const schools = ["abjuration", "conjuration", "divination", "enchantment", "evocation", "illusion", "necromancy", "transmutation"]
 
@@ -46,10 +47,10 @@ function convertBinary(num) {
 
 function updateBinary(level, school, damage, area, range) {
     document.getElementById("level-details").innerHTML = "Level: " + convertBinary(level) + " | K=1";
-    document.getElementById("school-details").innerHTML = "School: " + convertBinary(school) + " | K=2";
-    document.getElementById("damage-details").innerHTML = "Damage: " + convertBinary(damage) + " | K=3";
-    document.getElementById("area-details").innerHTML = "Area: " + convertBinary(area) + " | K=4";
-    document.getElementById("range-details").innerHTML = "Range: " + convertBinary(range) + " | K=5";
+    document.getElementById("school-details").innerHTML = "School: " + convertBinary(school+1) + " | K=2";
+    document.getElementById("damage-details").innerHTML = "Damage: " + convertBinary(damage+1) + " | K=3";
+    document.getElementById("area-details").innerHTML = "Area: " + convertBinary(area+1) + " | K=4";
+    document.getElementById("range-details").innerHTML = "Range: " + convertBinary(range+1) + " | K=5";
 }
 
 function drawLine(point1, point2, color="black") {
@@ -106,23 +107,34 @@ function drawPoints() {
 }
 
 function glyphPiece(index, k, color) {
+    /*Draws an individual piece of the glyph.
+    Takes the index of the attribute, the K-val for that attribute, and the color if it is selected. */
+
+    if (k != 1) {
+        index = index + 1; // Accounts for 0-indexing in JS. (Excludes level)
+    }
+    
+
+    // Convert the index of the item to binary
     var ind = convertBinary(index);
     console.log("Binary number: " + ind);
     var indr = ind.split("").reverse().join(""); //reverse binary number
 
     //console.log(points);
 
-    var f = 0;
+    var f = 0; // Keeps track of the current starting point. Decreases by 1 on each loop.
+    // Note: The points are drawn backwards, just as binary is read.
 
+    // Iterate throught the binary number and draw a line for each 1.
     for (i=0; i<(indr.length-1); i++) {
-        if (indr[i] === "1") {
+        if (indr[i] === "1") { // If there is a 1 at this location in the binary number.
             //console.log("F value: " + f);
             //console.log("K value: " + k);
 
             if (f === 0) {
                 var location = points[f];
             } else {
-                var location = points[points.length + f];
+                var location = points[points.length + f]; // Reminder that f is negative
             }
             var locationK = points[points.length + f + k]
 
@@ -140,6 +152,7 @@ function glyphPiece(index, k, color) {
             //console.log("Points at f+k: ")
             //console.log(locationK);
 
+            // Draws the line at the specified location.
             drawLine(location, locationK, color);
         };
         f = f - 1;
@@ -147,6 +160,8 @@ function glyphPiece(index, k, color) {
 }
 
 function plotGlyph(level, school, damage, area, range) {
+    /*Parent function to handle drawing each individual glyph.
+    Sets variables and runs glyphPiece for each spell attribute.*/
     var schoolIndex = schools.indexOf(school);
     var damageIndex = damages.indexOf(damage);
     var areaIndex = areas.indexOf(area);
@@ -189,6 +204,9 @@ function showDetails() {
 }
 
 function colorAttributes() {
+    /*Set up styling for the lines to be drawn.
+    This is selected from a checkbox on the frontend.
+    Clicking the box runs the function to set all colors.*/
     if (document.getElementById("color").checked) {
         document.getElementById("level").style.color = "red";
         document.getElementById("schools").style.color = "green";
@@ -206,13 +224,17 @@ function colorAttributes() {
 }
 
 
-function drawGlyph() {    
+function drawGlyph() {
+    /*Draws a glyph based on the user inputs */ 
+    
+    // Get user inputs
     var selectedLevel = parseInt(levelInput.value);
     var selectedSchool = schoolsDropdown.value;
     var selectedDamages = damagesDropdown.value;
     var selectedAreas = areasDropdown.value;
     var selectedRanges = rangesDropdown.value.toString();
 
+    // Logging
     console.log("Selected level: " + selectedLevel);
     
     console.log("Selected school: " + selectedSchool);
@@ -220,6 +242,7 @@ function drawGlyph() {
     console.log("Selected areas: " + selectedAreas);
     console.log("Selected ranges: " + selectedRanges);
     
+    // Show an alert if the selection is empty or invalid
     if (selectedLevel === NaN ||
         selectedLevel > 9 ||
         selectedSchool === "School of Magic" ||
@@ -231,13 +254,15 @@ function drawGlyph() {
             return;
         }
 
+    // If a glyph has already been drawn, clear the canvas and draw a new one.
     if (isGlyphDrawn) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawPoints();
+        drawPoints();  // Redraws points
     } else {
         isGlyphDrawn = true;
     }
 
+    // For first run, plot the glyph and draw the points.
     plotGlyph(selectedLevel, selectedSchool, selectedDamages, selectedAreas, selectedRanges);
     drawPoints();
 }
