@@ -14,7 +14,7 @@ That leads me to this "calculator". While I could see the draw for this up-front
 2. The player figures out what attributes are needed to cast the spell, and makes note of them.
 3. The player draws the glyph for that spell on their template, and holds onto it.
 4. During their turn, the player tells the DM what they are casting, hands them the glyph for checking, and informs them of the attributes if necessary.
-5. The DM enters the attributes into the calculator, checks it againt the glyph, and makes a decision on the validity of the glyph.
+5. The DM enters the attributes into the calculator, checks it against the glyph, and makes a decision on the validity of the glyph.
 
 In this way, the player does 95% of the work, and the DM simply clicks a few buttons and compares shapes.
 
